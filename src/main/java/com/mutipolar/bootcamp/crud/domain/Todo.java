@@ -25,5 +25,4 @@ public class Todo implements Serializable {
     private LocalDateTime dueTime;
     private Status status;
     private Priority priority;
-    private List<String> tags;
-}
+    private List<String> tags;}

@@ -36,4 +36,8 @@ public class TodoService {
     public void deleteTodoById(String id){
         todoRepository.deleteById(id);
     }
+
+    public Optional<Todo> findByTaskCaseInsensitive(String task){
+        return todoRepository.findByTaskCaseInsensitive(task);
+    }
 }

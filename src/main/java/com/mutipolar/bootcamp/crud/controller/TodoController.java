@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +16,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/todos")
-@Validated
 public class TodoController {
     private final TodoService todoService;
 
@@ -70,5 +68,11 @@ public class TodoController {
     public ResponseEntity<Void> deleteTodoId(@PathVariable String id){
         todoService.deleteTodoById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/task/{task}")
+    public ResponseEntity<Todo> getTodoByTask(@PathVariable String task){
+        Optional<Todo> todo = todoService.findByTaskCaseInsensitive(task);
+        return todo.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
